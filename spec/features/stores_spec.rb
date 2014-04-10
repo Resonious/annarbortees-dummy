@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-feature 'Url-based Stores:' do
+feature 'With multi-domain stores' do
   
   let!(:admin_role) {create(:admin_role)}
   let!(:user)       {create(:user)}
 
   let!(:shipping_category) {create(:shipping_category)}
-  let!(:default_store)            {create(:default_store)}
+  let!(:default_store)     {create(:default_store)}
 
   context 'as an admin with valid credentials, I can' do
     
@@ -56,7 +56,7 @@ feature 'Url-based Stores:' do
       expect(page).to_not have_selector('tbody > tr#spree_store_1')
     end
 
-    scenario 'create a product in a store', js: true, wip: true do
+    scenario 'create a product in a store', js: true, wip: false do
       visit '/admin'
       click_link 'Products'
       click_link 'New Product'
@@ -75,12 +75,24 @@ feature 'Url-based Stores:' do
   context 'as a user visiting the site, I can' do
     
     let!(:alternative_store) {create(:alternative_store)}
+
+    # These products may not be necessary
     let(:coffee_mug) {create(:coffee_mug)}
     let(:desk_chair) {create(:desk_chair)}
     let(:headphones) {create(:headphones)}
 
+    let!(:product_in_test)  {create(:product_in_test)}
+    let!(:product_in_other) {create(:product_in_other)}
+
     before(:each) do
       sign_in_as! user, 'spree123'
+    end
+
+    scenario 'visit the homepage, then stores index, then a specific store, and see the correct products', wip: true do
+      visit '/'
+      visit '/stores'
+      visit '/stores/other'
+      expect(page).to have_selector('a.info[itemprop=name]', text: 'Product in Other')
     end
 
     scenario 'see the products in the default store'
