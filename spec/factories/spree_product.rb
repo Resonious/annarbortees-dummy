@@ -24,3 +24,21 @@ FactoryGirl.define do
 		stores ['other']
 	end
 end
+
+FactoryGirl.define do
+	factory :product_in_test, class: Spree::Product do
+		name 'Product in Test'
+		available_on Time.now
+		slug 'test-product'
+		stores ['test']
+	end
+end
+
+FactoryGirl.define do
+	factory :product_in_other, class: Spree::Product do
+		name 'Product in Other'
+		available_on Time.now
+		slug 'other-product'
+		stores ['other']
+	end
+end
