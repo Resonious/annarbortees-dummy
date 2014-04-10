@@ -223,6 +223,7 @@
     <orderEntry type="library" scope="PROVIDED" name="spree_core (v2.2.2.beta@b2c902, RVM: ruby-2.1.1 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="spree_frontend (v2.2.2.beta@b2c902, RVM: ruby-2.1.1 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="spree_gateway (v2.2.1@8d3c09, RVM: ruby-2.1.1 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="spree_multi_domain (v1.0.0, /home/devmini/RubymineProjects/spree-multi-domain) [path][gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="spree_sample (v2.2.2.beta@b2c902, RVM: ruby-2.1.1 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sprockets (v2.11.0, RVM: ruby-2.1.1 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sprockets-rails (v2.0.1, RVM: ruby-2.1.1 [global]) [gem]" level="application" />

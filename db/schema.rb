@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140410144202) do
+ActiveRecord::Schema.define(version: 20140410150452) do
 
   create_table "spree_addresses", force: true do |t|
     t.string   "firstname"
@@ -239,6 +239,7 @@ ActiveRecord::Schema.define(version: 20140410144202) do
     t.datetime "approved_at"
     t.boolean  "confirmation_delivered",                                     default: false
     t.boolean  "considered_risky",                                           default: false
+    t.integer  "store_id"
   end
 
   add_index "spree_orders", ["completed_at"], name: "index_spree_orders_on_completed_at", using: :btree
@@ -360,6 +361,14 @@ ActiveRecord::Schema.define(version: 20140410144202) do
   add_index "spree_products_promotion_rules", ["product_id"], name: "index_products_promotion_rules_on_product_id", using: :btree
   add_index "spree_products_promotion_rules", ["promotion_rule_id"], name: "index_products_promotion_rules_on_promotion_rule_id", using: :btree
 
+  create_table "spree_products_stores", id: false, force: true do |t|
+    t.integer "product_id"
+    t.integer "store_id"
+  end
+
+  add_index "spree_products_stores", ["product_id"], name: "index_spree_products_stores_on_product_id", using: :btree
+  add_index "spree_products_stores", ["store_id"], name: "index_spree_products_stores_on_store_id", using: :btree
+
   create_table "spree_products_taxons", force: true do |t|
     t.integer "product_id"
     t.integer "taxon_id"
@@ -396,6 +405,11 @@ ActiveRecord::Schema.define(version: 20140410144202) do
 
   add_index "spree_promotion_rules", ["product_group_id"], name: "index_promotion_rules_on_product_group_id", using: :btree
   add_index "spree_promotion_rules", ["user_id"], name: "index_promotion_rules_on_user_id", using: :btree
+
+  create_table "spree_promotion_rules_stores", id: false, force: true do |t|
+    t.integer "promotion_rule_id"
+    t.integer "store_id"
+  end
 
   create_table "spree_promotion_rules_users", id: false, force: true do |t|
     t.integer "user_id"
@@ -615,6 +629,35 @@ ActiveRecord::Schema.define(version: 20140410144202) do
   add_index "spree_stock_transfers", ["number"], name: "index_spree_stock_transfers_on_number", using: :btree
   add_index "spree_stock_transfers", ["source_location_id"], name: "index_spree_stock_transfers_on_source_location_id", using: :btree
 
+  create_table "spree_store_payment_methods", force: true do |t|
+    t.integer  "store_id"
+    t.integer  "payment_method_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "spree_store_shipping_methods", force: true do |t|
+    t.integer  "store_id"
+    t.integer  "shipping_method_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "spree_store_shipping_methods", ["shipping_method_id"], name: "index_spree_store_shipping_methods_on_shipping_method_id", using: :btree
+  add_index "spree_store_shipping_methods", ["store_id"], name: "index_spree_store_shipping_methods_on_store_id", using: :btree
+
+  create_table "spree_stores", force: true do |t|
+    t.string   "name"
+    t.string   "code"
+    t.text     "domains"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "default",          default: false
+    t.string   "email"
+    t.string   "logo_file_name"
+    t.string   "default_currency"
+  end
+
   create_table "spree_tax_categories", force: true do |t|
     t.string   "name"
     t.string   "description"
@@ -641,7 +684,10 @@ ActiveRecord::Schema.define(version: 20140410144202) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "position",   default: 0
+    t.integer  "store_id"
   end
+
+  add_index "spree_taxonomies", ["store_id"], name: "index_spree_taxonomies_on_store_id", using: :btree
 
   create_table "spree_taxons", force: true do |t|
     t.integer  "parent_id"
@@ -684,6 +730,7 @@ ActiveRecord::Schema.define(version: 20140410144202) do
     t.boolean  "active",       default: true
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "store_id"
   end
 
   create_table "spree_users", force: true do |t|

@@ -47,3 +47,4 @@ end
 gem 'spree', github: 'spree/spree', branch: '2-2-stable'
 gem 'spree_gateway', :git => 'https://github.com/spree/spree_gateway.git', :branch => '2-2-stable'
 gem 'spree_auth_devise', :git => 'https://github.com/spree/spree_auth_devise.git', :branch => '2-2-stable'
+gem 'spree_multi_domain', path: '~/RubymineProjects/spree-multi-domain'
