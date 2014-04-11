@@ -3,42 +3,34 @@ FactoryGirl.define do
 		name 'Coffee Mug'
 		available_on Time.now
 		slug 'coffee-mug'
-		stores ['test, other']
+		#stores ['test, other']
 	end
-end
 
-FactoryGirl.define do
 	factory :desk_chair, class: Spree::Product do
 		name 'Desk Chair'
 		available_on Time.now
 		slug 'desk-chair'
-		stores ['test']
+		#stores ['test']
 	end
-end
 
-FactoryGirl.define do
 	factory :headphones, class: Spree::Product do
 		name 'Headphones'
 		available_on Time.now
 		slug 'headphones'
-		stores ['other']
+		#stores ['other']
 	end
-end
 
-FactoryGirl.define do
 	factory :product_in_test, class: Spree::Product do
 		name 'Product in Test'
 		available_on Time.now
 		slug 'test-product'
-		stores ['test']
+		price 1.20
 	end
-end
 
-FactoryGirl.define do
 	factory :product_in_other, class: Spree::Product do
 		name 'Product in Other'
 		available_on Time.now
 		slug 'other-product'
-		stores ['other']
+		price 1.50
 	end
 end

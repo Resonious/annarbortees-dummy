@@ -5,7 +5,7 @@ feature 'With multi-domain stores' do
   let!(:admin_role) {create(:admin_role)}
   let!(:user)       {create(:user)}
 
-  let!(:shipping_category) {create(:shipping_category)}
+  #let!(:shipping_category) {create(:shipping_category)}
   let!(:default_store)     {create(:default_store)}
 
   context 'as an admin with valid credentials, I can' do
@@ -81,14 +81,18 @@ feature 'With multi-domain stores' do
     let(:desk_chair) {create(:desk_chair)}
     let(:headphones) {create(:headphones)}
 
-    let!(:product_in_test)  {create(:product_in_test)}
-    let!(:product_in_other) {create(:product_in_other)}
+    let!(:product_in_test)  {create(:product_in_test,  shipping_category: create(:shipping_category))}
+    let!(:product_in_other) {create(:product_in_other, shipping_category: create(:shipping_category))}
 
     before(:each) do
       sign_in_as! user, 'spree123'
     end
 
     scenario 'visit the homepage, then stores index, then a specific store, and see the correct products', wip: true do
+      # TODO Make these products already belong to their respective stores
+      product_in_test.stores << default_store
+      product_in_other.stores << alternative_store
+
       visit '/'
       visit '/stores'
       visit '/stores/other'

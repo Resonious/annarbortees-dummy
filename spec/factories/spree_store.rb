@@ -1,4 +1,9 @@
 FactoryGirl.define do
+	factory :shipping_category, class: Spree::ShippingCategory do
+		name 'Default'
+	end
+
+
 	factory :default_store, class: Spree::Store do 
 		name 'Test Store'
 		code 'test'
@@ -6,10 +11,9 @@ FactoryGirl.define do
 		default 1
 		email '...'
 		default_currency 'USD'
+		#initialize_with { Spree::Store.find_or_create_by(code: code)} 
 	end
-end
 
-FactoryGirl.define do
 	factory :alternative_store, class: Spree::Store do
 		name 'Other Store'
 		code 'other'
