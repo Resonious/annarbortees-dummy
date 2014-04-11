@@ -6,13 +6,21 @@ FactoryGirl.define do
 		default 1
 		email '...'
 		default_currency 'USD'
-		#initialize_with { Spree::Store.find_or_create_by(code: code)} 
 	end
 
 	factory :alternative_store, class: Spree::Store do
 		name 'Other Store'
 		code 'other'
 		domains 'dont.care.com'
+		default 0
+		email '...'
+		default_currency 'USD'
+	end
+
+	factory :domained_store, class: Spree::Store do
+		name 'Domained Store'
+		code 'dom'
+		domains 'example.com'
 		default 0
 		email '...'
 		default_currency 'USD'

@@ -5,7 +5,7 @@ feature 'With multi-domain stores' do
   let!(:admin_role) {create(:admin_role)}
   let!(:user)       {create(:user)}
 
-  #let!(:shipping_category) {create(:shipping_category)}
+  let!(:shipping_category) {create(:shipping_category)}
   let!(:default_store)     {create(:default_store)}
 
   context 'as an admin with valid credentials, I can' do
@@ -76,11 +76,6 @@ feature 'With multi-domain stores' do
     
     let!(:alternative_store) {create(:alternative_store)}
 
-    # These products may not be necessary
-    let(:coffee_mug) {create(:coffee_mug)}
-    let(:desk_chair) {create(:desk_chair)}
-    let(:headphones) {create(:headphones)}
-
     let!(:product_in_test)  {
       create(:product_in_test,  
         shipping_category: create(:shipping_category),
@@ -96,27 +91,44 @@ feature 'With multi-domain stores' do
       sign_in_as! user, 'spree123'
     end
 
-    scenario 'visit the homepage, then stores index, then a specific store, and see the correct products', wip: true do
+    scenario 'visit the homepage, then stores index, then a specific store, and see the correct products', wip: false do
       visit '/'
       visit '/stores'
       visit '/stores/other'
       expect(page).to have_selector('a.info[itemprop=name]', text: 'Product in Other')
     end
 
-    scenario 'see the products in the default store', wip: true do
+    scenario 'see the products in the default store', wip: false do
       visit '/'
       expect(page).to have_selector('a.info[itemprop=name]', text: 'Product in Test')
     end
 
-    scenario 'click a product to view its details, and still be in the same store', wip: true do
+    scenario 'click a product to view its details, and still be in the same store', wip: false do
       visit '/stores/other'
       find('a.info[itemprop=name]', text: 'Product in Other').click
       expect(page).to have_selector('a[href="/stores/other"]', text: 'Home')
     end
 
-    scenario 'be redirected to "/" when visiting "/stores/test", which is the default store', wip: true do
+    scenario 'be redirected to "/" when visiting "/stores/test", which is the default store', wip: false do
       visit '/stores/test'
       expect(current_path).to eq('/')
+    end
+
+    context 'when there is a shop under the current domain,' do
+        
+      let!(:domained_store) {create(:domained_store)}
+      
+      let!(:product_in_domain) {
+        create(:product_in_domain, 
+          shipping_category: create(:shipping_category),
+          stores: [domained_store])
+      }
+
+      scenario "see the alternate, non-default store when visiting '/'", wip: true, pending: true do        
+        visit '/'
+        expect(page).to have_selector('a.info[itemprop=name]', text: 'Product in Domained')
+      end
+
     end
 
   end
