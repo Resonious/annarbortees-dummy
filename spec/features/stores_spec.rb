@@ -103,9 +103,21 @@ feature 'With multi-domain stores' do
       expect(page).to have_selector('a.info[itemprop=name]', text: 'Product in Other')
     end
 
-    scenario 'see the products in the default store'
-    scenario 'click a product to view its details, and still be in the same store'
-    scenario 'go to a different store by changing the url'
+    scenario 'see the products in the default store', wip: true do
+      visit '/'
+      expect(page).to have_selector('a.info[itemprop=name]', text: 'Product in Test')
+    end
+
+    scenario 'click a product to view its details, and still be in the same store', wip: true do
+      visit '/stores/other'
+      find('a.info[itemprop=name]', text: 'Product in Other').click
+      expect(page).to have_selector('a[href="/stores/other"]', text: 'Home')
+    end
+
+    scenario 'be redirected to "/" when visiting "/stores/test", which is the default store', wip: true do
+      visit '/stores/test'
+      expect(current_path).to eq('/')
+    end
 
   end
 
