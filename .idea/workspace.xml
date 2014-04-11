@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list id="75fef792-fc85-43f1-add0-aa6027e706c5" name="Default" comment="Use correct spec_helper&#10;">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/.generators" afterPath="$PROJECT_DIR$/.idea/.generators" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/.rakeTasks" afterPath="$PROJECT_DIR$/.idea/.rakeTasks" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/annarbortees-dummy.iml" afterPath="$PROJECT_DIR$/.idea/annarbortees-dummy.iml" />
+    <list default="true" id="165a95f1-3e17-47e7-beff-22cb2f2b6718" name="Remove apparently unnecessary shipping category factory (cherry picked from commit cf3603b)" comment="Put factory in actual factory file and add more tests">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
-    <list default="true" id="165a95f1-3e17-47e7-beff-22cb2f2b6718" name="Remove apparently unnecessary shipping category factory (cherry picked from commit cf3603b)" comment="Put factory in actual factory file and add more tests" />
     <ignored path="annarbortees-dummy.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -786,7 +782,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="75fef792-fc85-43f1-add0-aa6027e706c5" name="Default" comment="" />
+      <changelist id="" name="Default" comment="" />
       <created>1397140367088</created>
       <updated>1397140367088</updated>
     </task>
@@ -850,7 +846,11 @@
       <created>1397237444913</created>
       <updated>1397237444913</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Use correct spec_helper&#10;">
+      <created>1397237470936</created>
+      <updated>1397237470936</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -905,7 +905,8 @@
     <MESSAGE value="Added test layout to test store-layout association" />
     <MESSAGE value="Put stores initializer in product factory creators" />
     <MESSAGE value="Put factory in actual factory file and add more tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="Put factory in actual factory file and add more tests" />
+    <MESSAGE value="Use correct spec_helper&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Use correct spec_helper&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
