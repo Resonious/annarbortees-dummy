@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140410150452) do
+ActiveRecord::Schema.define(version: 20140411185026) do
 
   create_table "spree_addresses", force: true do |t|
     t.string   "firstname"
@@ -656,7 +656,10 @@ ActiveRecord::Schema.define(version: 20140410150452) do
     t.string   "email"
     t.string   "logo_file_name"
     t.string   "default_currency"
+    t.integer  "parent_id"
   end
+
+  add_index "spree_stores", ["parent_id"], name: "index_spree_stores_on_parent_id", using: :btree
 
   create_table "spree_tax_categories", force: true do |t|
     t.string   "name"
