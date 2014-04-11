@@ -81,18 +81,22 @@ feature 'With multi-domain stores' do
     let(:desk_chair) {create(:desk_chair)}
     let(:headphones) {create(:headphones)}
 
-    let!(:product_in_test)  {create(:product_in_test,  shipping_category: create(:shipping_category))}
-    let!(:product_in_other) {create(:product_in_other, shipping_category: create(:shipping_category))}
+    let!(:product_in_test)  {
+      create(:product_in_test,  
+        shipping_category: create(:shipping_category),
+        stores: [default_store])
+    }
+    let!(:product_in_other) {
+      create(:product_in_other, 
+        shipping_category: create(:shipping_category),
+        stores: [alternative_store])
+    }
 
     before(:each) do
       sign_in_as! user, 'spree123'
     end
 
     scenario 'visit the homepage, then stores index, then a specific store, and see the correct products', wip: true do
-      # TODO Make these products already belong to their respective stores
-      product_in_test.stores << default_store
-      product_in_other.stores << alternative_store
-
       visit '/'
       visit '/stores'
       visit '/stores/other'
@@ -100,7 +104,7 @@ feature 'With multi-domain stores' do
     end
 
     scenario 'see the products in the default store'
-    scenario 'click a product to view its details'
+    scenario 'click a product to view its details, and still be in the same store'
     scenario 'go to a different store by changing the url'
 
   end
