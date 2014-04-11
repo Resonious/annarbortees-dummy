@@ -1,9 +1,4 @@
 FactoryGirl.define do
-	factory :shipping_category, class: Spree::ShippingCategory do
-		name 'Default'
-	end
-
-
 	factory :default_store, class: Spree::Store do 
 		name 'Test Store'
 		code 'test'
