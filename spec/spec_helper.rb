@@ -20,6 +20,7 @@ RSpec.configure do |config|
 #  config.include EmailSpec::Matchers
   config.include AjaxHelpers
   config.include AuthenticationHelpers
+  config.include StoreHelpers
 
   # ## Mock Framework
   #
