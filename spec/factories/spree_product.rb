@@ -13,6 +13,11 @@ FactoryGirl.define do
 		price 1.50
 	end
 
+	factory :product, class: Spree::Product do
+		available_on Time.now
+		price 99.99
+	end
+
 	factory :product_in_domain, class: Spree::Product do
 		name 'Product in Domained'
 		available_on Time.now

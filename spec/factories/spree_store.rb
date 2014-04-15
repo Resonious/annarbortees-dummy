@@ -17,6 +17,16 @@ FactoryGirl.define do
 		default_currency 'USD'
 	end
 
+	factory :sub_store, class: Spree::Store do
+		name 'Sub Store'
+		code 'sub'
+		domains 'whatever.com'
+		default 0
+		email '...'
+		default_currency 'USD'
+	end
+
+	# TODO the test that uses this doesn't work
 	factory :domained_store, class: Spree::Store do
 		name 'Domained Store'
 		code 'dom'
