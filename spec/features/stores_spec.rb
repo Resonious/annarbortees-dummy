@@ -10,7 +10,7 @@ feature 'With multi-domain stores' do
 
   let!(:product_in_test)  {
     create(:product_in_test,  
-      shipping_category: create(:shipping_category),
+      shipping_category: shipping_category,
       stores: [default_store])
   }
 
@@ -83,7 +83,7 @@ feature 'With multi-domain stores' do
     let!(:alternative_store) {create(:alternative_store)}
     let!(:product_in_other) {
       create(:product_in_other, 
-        shipping_category: create(:shipping_category),
+        shipping_category: shipping_category,
         stores: [alternative_store])
     }
 
@@ -103,6 +103,11 @@ feature 'With multi-domain stores' do
       expect(page).to have_selector('a.info[itemprop=name]', text: 'Product in Test')
     end
 
+    scenario 'visit the default store explicitly, and NOT be redirected to root' do
+      visit '/stores/test'
+      expect(current_path).to_not eq '/'
+    end
+
     scenario 'can view product details, and the home buttons will lead back to the store home', home_link: true, wip: false do
       visit '/stores/other'
       find('a.info[itemprop=name]', text: 'Product in Other').click
@@ -115,7 +120,7 @@ feature 'With multi-domain stores' do
     let!(:domained_store) {create(:domained_store)}
     let!(:product_in_domain) {
       create(:product_in_domain, 
-        shipping_category: create(:shipping_category),
+        shipping_category: shipping_category,
         stores: [domained_store])
     }
 

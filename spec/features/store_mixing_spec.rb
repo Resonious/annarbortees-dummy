@@ -10,7 +10,7 @@ feature 'Store mixing:' do
 
   let!(:product_in_test)  {
     create(:product_in_test,  
-      shipping_category: create(:shipping_category),
+      shipping_category: shipping_category,
       stores: [default_store])
   }
 
@@ -51,7 +51,12 @@ feature 'Store mixing:' do
         expect(page).to_not display_product_called 'Product in Test'
       end
 
-      scenario 'I can visit an invalid compound store url and be redirected to an error page?'
+      scenario 'I can visit an invalid compound store url and be redirected to an error page?', wip: true do
+        visit '/stores/sub/other'
+        # Change this to actually look for error page content
+        expect(page).to_not display_product_called 'Product in Sub'
+        expect(page).to_not display_product_called 'Product in Other'
+      end
 
       context 'when alternative_store is under the domain www.example.com,' do
         before(:each) { alternative_store.domains = 'www.example.com'; alternative_store.save }

@@ -15,6 +15,7 @@ FactoryGirl.define do
 		default 0
 		email '...'
 		default_currency 'USD'
+		url_index = 0
 	end
 
 	factory :sub_store, class: Spree::Store do
@@ -24,6 +25,7 @@ FactoryGirl.define do
 		default 0
 		email '...'
 		default_currency 'USD'
+		url_index = 1
 	end
 
 	# TODO the test that uses this doesn't work
