@@ -8,7 +8,13 @@ feature 'With multi-domain stores' do
   let!(:shipping_category) {create(:shipping_category)}
   let!(:default_store)     {create(:default_store)}
 
-  context 'as an admin with valid credentials, I can' do
+  let!(:product_in_test)  {
+    create(:product_in_test,  
+      shipping_category: create(:shipping_category),
+      stores: [default_store])
+  }
+
+  context 'as an admin with valid credentials, I can', admin: true do
     
     before(:each) do 
       appoint_admin user
@@ -72,15 +78,9 @@ feature 'With multi-domain stores' do
 
   end
 
-  context 'as a user visiting the site, I can' do
+  context 'as a user visiting the site, I can', user: true do
     
     let!(:alternative_store) {create(:alternative_store)}
-
-    let!(:product_in_test)  {
-      create(:product_in_test,  
-        shipping_category: create(:shipping_category),
-        stores: [default_store])
-    }
     let!(:product_in_other) {
       create(:product_in_other, 
         shipping_category: create(:shipping_category),
@@ -114,21 +114,24 @@ feature 'With multi-domain stores' do
       expect(current_path).to eq('/')
     end
 
-    context 'when there is a shop under the current domain,' do
-        
-      let!(:domained_store) {create(:domained_store)}
-      
-      let!(:product_in_domain) {
-        create(:product_in_domain, 
-          shipping_category: create(:shipping_category),
-          stores: [domained_store])
-      }
+  end
 
-      scenario "see the alternate, non-default store when visiting '/'", wip: true, pending: true do        
-        visit '/'
-        expect(page).to have_selector('a.info[itemprop=name]', text: 'Product in Domained')
-      end
+  context 'as a user visiting the site with a store matching the current domain, I', user: true do
+    let!(:domained_store) {create(:domained_store)}
+    let!(:product_in_domain) {
+      create(:product_in_domain, 
+        shipping_category: create(:shipping_category),
+        stores: [domained_store])
+    }
 
+    before(:each) do
+      sign_in_as! user, 'spree123'
+    end
+
+    scenario "can see the alternate store when visiting '/'", wip: true, pending: false do
+      visit '/'
+      expect(page).to     display_product_called 'Product in Domained'
+      expect(page).to_not display_product_called 'Product in Test'
     end
 
   end
