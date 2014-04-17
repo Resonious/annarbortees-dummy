@@ -53,7 +53,7 @@ feature 'Store mixing:' do
 
       scenario 'I can visit an invalid compound store url and be redirected to an error page?', wip: true do
         visit '/stores/sub/other'
-        # Change this to actually look for error page content
+        # TODO Change this to actually look for error page content
         expect(page).to_not display_product_called 'Product in Sub'
         expect(page).to_not display_product_called 'Product in Other'
       end
