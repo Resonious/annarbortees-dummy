@@ -30,7 +30,7 @@ FactoryGirl.define do
 	factory :domained_store, class: Spree::Store do
 		name 'Domained Store'
 		code 'dom'
-		domains 'example.com'
+		domains 'www.example.com'
 		default 0
 		email '...'
 		default_currency 'USD'
