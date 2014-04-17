@@ -78,7 +78,7 @@ feature 'With multi-domain stores' do
 
   end
 
-  context 'as a user visiting the site, I can', user: true do
+  context 'as a user visiting the site I', user: true do
     
     let!(:alternative_store) {create(:alternative_store)}
     let!(:product_in_other) {
@@ -91,27 +91,22 @@ feature 'With multi-domain stores' do
       sign_in_as! user, 'spree123'
     end
 
-    scenario 'visit the homepage, then stores index, then a specific store, and see the correct products', wip: false do
+    scenario 'can visit the homepage, then stores index, then a specific store, and see the correct products', wip: false do
       visit '/'
       visit '/stores'
       visit '/stores/other'
       expect(page).to have_selector('a.info[itemprop=name]', text: 'Product in Other')
     end
 
-    scenario 'see the products in the default store', wip: false do
+    scenario 'can see the products in the default store', wip: false do
       visit '/'
       expect(page).to have_selector('a.info[itemprop=name]', text: 'Product in Test')
     end
 
-    scenario 'click a product to view its details, and still be in the same store', wip: false do
+    scenario 'can view product details, and the home buttons will lead back to the store home', home_link: true, wip: false do
       visit '/stores/other'
       find('a.info[itemprop=name]', text: 'Product in Other').click
-      expect(page).to have_selector('a[href="/stores/other"]', text: 'Home')
-    end
-
-    scenario 'be redirected to "/" when visiting "/stores/test", which is the default store', wip: false do
-      visit '/stores/test'
-      expect(current_path).to eq('/')
+      expect(find('#home-link > a')[:href]).to eq '/stores/other'
     end
 
   end

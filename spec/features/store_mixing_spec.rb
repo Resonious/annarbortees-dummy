@@ -8,7 +8,13 @@ feature 'Store mixing:' do
   let!(:shipping_category) {create(:shipping_category)}
   let!(:default_store) {create(:default_store)}
 
-  context 'as a user visiting the site, I can', user: true do
+  let!(:product_in_test)  {
+    create(:product_in_test,  
+      shipping_category: create(:shipping_category),
+      stores: [default_store])
+  }
+
+  context 'as a user visiting the site', user: true do
   
     let!(:alternative_store) {create(:alternative_store)}
     let!(:sub_store) {create(:sub_store)}
@@ -37,19 +43,28 @@ feature 'Store mixing:' do
         sign_in_as! user, 'spree123'
       end
 
-      scenario 'visit a valid compound store url and see only the mutually-included products', wip: false do
+      scenario 'I can visit a valid compound store url and see only the mutually-included products', wip: false do
         visit '/stores/other/sub'
         expect(page).to display_product_called 'Other + Sub'
         expect(page).to_not display_product_called 'Product in Sub'
         expect(page).to_not display_product_called 'Product in Other'
+        expect(page).to_not display_product_called 'Product in Test'
       end
 
-      scenario 'visit /stores/test/sub and be redirected to /stores/sub' do
-        visit '/stores/other/sub'
-        expect(current_path).to eq '/stores/sub'
-      end
+      scenario 'I can visit an invalid compound store url and be redirected to an error page?'
 
-      scenario 'visit an invalid compound store url and be redirected to an error page?'
+      context 'when alternative_store is under the domain www.example.com,' do
+        before(:each) { alternative_store.domains = 'www.example.com'; alternative_store.save }
+
+        scenario 'I am redirected to /stores/sub when visiting /stores/other/sub', wip: true do
+          visit '/stores/other/sub'
+          expect(current_path).to eq '/stores/sub'
+          expect(page).to_not display_product_called 'Product in Sub'
+          expect(page).to_not display_product_called 'Product in Other'
+          expect(page).to_not display_product_called 'Product in Test'
+        end
+
+      end
 
   end
 
